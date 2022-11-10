@@ -1,0 +1,18 @@
+button {
+  height: 50px;
+  width: 100px;
+  margin: 20px;
+}
+
+#idButton1 {
+  background-color: crimson;
+}
+
+#idButton2 {
+  background-color: cyan;
+}
+
+input {
+  height: 20px;
+  width: 150px;
+}
