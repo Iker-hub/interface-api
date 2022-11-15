@@ -1,18 +1,28 @@
-#idButton {
-  height: 50px;
-  width: 100px;
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap");
+
+html {
+  font-family: "Chakra Petch", sans-serif;
+
   margin: 20px;
 }
 
-#idButton1 {
-  background-color: crimson;
+.button {
+  height: 50px;
+  width: 100px;
+
+  background-image: url(../assets/button.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 20px;
 }
 
-#idButton2 {
-  background-color: cyan;
-}
-
-input {
-  height: 20px;
-  width: 150px;
+.buttonValue {
+  color: white;
+  text-shadow: 1px 1px 1px black;
 }

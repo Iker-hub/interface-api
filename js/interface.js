@@ -8,15 +8,25 @@ class GrapichInterface {
 
   defineForm(id) {
     let form = document.createElement("form");
-    form.id = id;
+
+    if (form.id != null) {
+      form.id = id;
+    } else {
+      form.id = "idForm";
+    }
     document.body.appendChild(form);
   }
 
   defineComponents(config) {
-    config.components.forEach((component) => {
-      let item = document.createElement("input");
+    config.components.forEach((component, index) => {
+      let item = document.createElement("div");
       item.type = component.type;
-      item.id = component.id;
+
+      if (item.id != null) {
+        item.id = component.id;
+      } else {
+        item.id = "id" + item.type + index;
+      }
 
       switch (item.type) {
         case "checkbox":
@@ -52,8 +62,13 @@ class GrapichInterface {
   }
 
   defineButton(component, item) {
+    item.setAttribute("class", "button");
+
     if (component.value != null) {
-      item.value = component.value;
+      let p = document.createElement("p");
+      p.setAttribute("class", "buttonValue");
+      p.appendChild(document.createTextNode(component.value));
+      item.appendChild(p);
     }
 
     if (component.listener != null) {
