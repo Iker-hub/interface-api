@@ -1,31 +1,34 @@
 import anime from "../js/anime.es.js";
 
 class GrapichInterface {
+  form = null;
+
   init(configuration) {
-    this.defineForm(configuration.id);
+    this.defineForm(configuration);
     this.defineComponents(configuration);
   }
 
-  defineForm(id) {
-    var form = document.createElement("form");
+  defineForm(config) {
+    this.form = document.createElement("form");
 
-    if (form.id != null) {
-      form.id = id;
+    if (this.form.id != null) {
+      this.form.id = config.id;
     } else {
-      form.id = "idForm";
+      this.form.id = "idForm";
     }
-    document.body.appendChild(form);
+
+    this.form.addEventListener("submit", config.action);
   }
 
   defineComponents(config) {
     config.components.forEach((component, index) => {
-      var item = document.createElement("div");
+      let item = document.createElement("input");
       item.type = component.type;
 
       if (item.id != null) {
         item.id = component.id;
       } else {
-        item.id = "id" + item.type + index;
+        item.id = "id-" + item.type + "-" + index;
       }
 
       switch (item.type) {
@@ -40,72 +43,88 @@ class GrapichInterface {
           break;
       }
 
-      document.getElementById(config.container).appendChild(item);
+      this.form.appendChild(item);
     });
   }
 
   defineCheckbox(config, component, item) {
-    if (item.target != null) {
+    let div = null;
+    if (component.target == undefined) {
+      div = document.createElement("div");
+      div.className = "checkbox";
+      document.getElementById(config.container).appendChild(div);
+    } else {
+      div = document.getElementById(component.target);
     }
 
-    item.setAttribute("class", "checkbox");
-
-    /*if (component.label != null) {
-      var label = document.createElement("label");
+    if (component.label != undefined) {
+      let label = document.createElement("label");
       label.for = component.id;
       label.appendChild(document.createTextNode(component.label));
       document.getElementById(config.id).appendChild(label);
-    }*/
+    }
 
-    if (component.value != null) {
+    if (component.value != undefined) {
       item.value = component.value;
     }
 
-    if (component.listener != null) {
+    if (component.listener != undefined) {
       item.addEventListener("click", component.listener);
     }
 
-    item.addEventListener("click", () => {
-      item.classList.toggle("checkbox-checked");
+    div.addEventListener("click", () => {
+      div.classList.toggle("checkbox-checked");
+      if (div.classList.contains("checkbox-checked")) {
+        item.setAttribute("checked", true);
+      } else {
+        item.setAttribute("checked", false);
+      }
     });
   }
 
   defineButton(component, item) {
-    item.setAttribute("class", "button");
+    let div = null;
+    if (component.target == undefined) {
+      div = document.createElement("div");
+      div.className = "button";
+      document.getElementById(config.container).appendChild(div);
+    } else {
+      div = document.getElementById(component.target);
+    }
 
-    if (component.value != null) {
-      var p = document.createElement("p");
+    if (component.value != undefined) {
+      let p = document.createElement("p");
       p.setAttribute("class", "buttonValue");
       p.appendChild(document.createTextNode(component.value));
       item.appendChild(p);
     }
 
-    if (component.listener != null) {
+    if (component.listener != undefined) {
       item.addEventListener("click", component.listener);
     }
   }
 
   defineRange(config, component, item) {
-    /*if (component.label != null) {
-      var label = document.createElement("label");
+    if (component.label != undefined) {
+      let label = document.createElement("label");
       label.for = component.id;
       label.appendChild(document.createTextNode(component.label));
       document.getElementById(config.id).appendChild(label);
-    }*/
+    }
 
-    if (component.min != null) {
+    if (component.min != undefined) {
       item.min = component.min;
     }
 
-    if (component.max != null) {
+    if (component.max != undefined) {
       item.max = component.max;
     }
 
-    if (component.step != null) {
+    if (component.step != undefined) {
       item.step = component.step;
     }
 
-    if (component.value != null) {
+    if (component.value != undefined) {
       item.value = component.value;
     }
   }

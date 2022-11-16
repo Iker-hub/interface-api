@@ -10,16 +10,18 @@ html {
   width: 50px;
   height: 50px;
 
-  background-image: url(../assets/cross.png);
+  background-image: url(../assets/checkbox.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 
   cursor: pointer;
+
+  margin: 20px;
 }
 
 .checkbox-checked {
-  background-image: url(../assets/check.png);
+  background-image: url(../assets/checkbox-checked.png);
 }
 
 .button {
@@ -40,7 +42,8 @@ html {
   cursor: pointer;
 }
 
-.buttonValue {
+.buttonValue,
+.checkboxValue {
   color: white;
   text-shadow: 1px 1px 1px black;
 }
