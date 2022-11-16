@@ -7,7 +7,7 @@ class GrapichInterface {
   }
 
   defineForm(id) {
-    let form = document.createElement("form");
+    var form = document.createElement("form");
 
     if (form.id != null) {
       form.id = id;
@@ -19,7 +19,7 @@ class GrapichInterface {
 
   defineComponents(config) {
     config.components.forEach((component, index) => {
-      let item = document.createElement("div");
+      var item = document.createElement("div");
       item.type = component.type;
 
       if (item.id != null) {
@@ -40,17 +40,22 @@ class GrapichInterface {
           break;
       }
 
-      document.getElementById(config.id).appendChild(item);
+      document.getElementById(config.container).appendChild(item);
     });
   }
 
   defineCheckbox(config, component, item) {
-    if (component.label != null) {
-      let label = document.createElement("label");
+    if (item.target != null) {
+    }
+
+    item.setAttribute("class", "checkbox");
+
+    /*if (component.label != null) {
+      var label = document.createElement("label");
       label.for = component.id;
       label.appendChild(document.createTextNode(component.label));
       document.getElementById(config.id).appendChild(label);
-    }
+    }*/
 
     if (component.value != null) {
       item.value = component.value;
@@ -59,13 +64,17 @@ class GrapichInterface {
     if (component.listener != null) {
       item.addEventListener("click", component.listener);
     }
+
+    item.addEventListener("click", () => {
+      item.classList.toggle("checkbox-checked");
+    });
   }
 
   defineButton(component, item) {
     item.setAttribute("class", "button");
 
     if (component.value != null) {
-      let p = document.createElement("p");
+      var p = document.createElement("p");
       p.setAttribute("class", "buttonValue");
       p.appendChild(document.createTextNode(component.value));
       item.appendChild(p);
@@ -77,12 +86,12 @@ class GrapichInterface {
   }
 
   defineRange(config, component, item) {
-    if (component.label != null) {
-      let label = document.createElement("label");
+    /*if (component.label != null) {
+      var label = document.createElement("label");
       label.for = component.id;
       label.appendChild(document.createTextNode(component.label));
       document.getElementById(config.id).appendChild(label);
-    }
+    }*/
 
     if (component.min != null) {
       item.min = component.min;
